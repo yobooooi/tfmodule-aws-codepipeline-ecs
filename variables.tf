@@ -36,3 +36,8 @@ variable "subnet_id2" {
 variable "subnet_id3" {
   default = "subnet-0ae32650dc8cc5aab"
 }
+
+variable "runtime_version" {
+  description = ""
+  default     = "openjdk11" 
+}

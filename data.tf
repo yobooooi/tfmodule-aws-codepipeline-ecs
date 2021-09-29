@@ -23,11 +23,11 @@ data "template_file" "codebuild_policy" {
   }
 }
 
-#TODO: add java runtime parameter
 data "template_file" "buildspec" {
   template = file("${path.module}/templates/buildspec.tpl")
 
   vars = {
+    runtime_version         = var.runtime_version
     container_name          = var.service
     repository_url          = aws_ecr_repository.repository.repository_url
     region                  = var.region
