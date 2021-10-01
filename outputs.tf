@@ -18,8 +18,8 @@ output "ecr_repository_url" {
   value = aws_ecr_repository.repository.repository_url
 }
 
-output "ecs_dev_taskdefinition" {
-  value = jsonencode(templatefile("${path.module}/templates/taskdefinition.tpl", {
+output "ecs_dev_task_definition" {
+  value = templatefile("${path.module}/templates/taskdefinition.tpl", {
     aws_region           = var.region,
     aws_account_id       = data.aws_caller_identity.current.account_id,
     service_name         = var.service,
@@ -31,5 +31,9 @@ output "ecs_dev_taskdefinition" {
     log_group            = aws_cloudwatch_log_group.dev_ecs_log_group.name,
     environment_vars     = var.dev_ecs_environment_vars,
     secrets              = var.dev_ecs_ssm_secrets
-  }))
+  })
+}
+
+output "ecs_dev_task_arn" {
+  value = aws_ecs_task_definition.dev_ecs_service.arn
 }
