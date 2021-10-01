@@ -1,51 +1,41 @@
-[
+{
+  "name": "${container_name}",
+  "image": "${image}:latest",
+  "memoryReservation": ${reserved_task_memory},
+  "portMappings": [
     {
-      "name": "${container_name}",
-      "image": "${image}",
-      "memoryReservation": ${reserved_task_memory},
-      "portMappings": [
-        {
-          "containerPort": ${container_port},
-          "hostPort": ${host_port}
-        }
-      ],
-      "environment": [
-        {
-          "name": "AWS_DEFAULT_REGION",
-          "value": "eu-west-1"
-        }
-      ],
-      "secrets": [
-        {
-          "name": "MYSQL_HOST",
-          "valueFrom": "arn:aws:ssm:${aws_region}:${aws_account_id}:parameter/${service_name}/${environment_name}/MYSQL_HOST"
-        },
-        {
-          "name": "MYSQL_PORT",
-          "valueFrom": "arn:aws:ssm:${aws_region}:${aws_account_id}:parameter/${service_name}/${environment_name}/MYSQL_PORT"
-        },
-        {
-          "name": "MYSQL_PASS",
-          "valueFrom": "arn:aws:ssm:${aws_region}:${aws_account_id}:parameter/${service_name}/${environment_name}/MYSQL_PASS"
-        },
-        {
-          "name": "MYSQL_DATABASE",
-          "valueFrom": "arn:aws:ssm:${aws_region}:${aws_account_id}:parameter/${service_name}/${environment_name}/MYSQL_DATABASE"
-        },
-        {
-          "name": "MYSQL_USER",
-          "valueFrom": "arn:aws:ssm:${aws_region}:${aws_account_id}:parameter/${service_name}/${environment_name}/MYSQL_USER"
-        }
-      ],
-      "networkMode": "bridge",
-      "essential": true,
-      "logConfiguration": {
-        "logDriver": "awslogs",
-        "options": {
-          "awslogs-group": "${log_group}",
-          "awslogs-region": "${aws_region}",
-          "awslogs-stream-prefix": "${service_name}"
-        }
-      }
+      "containerPort": ${container_port},
+      "hostPort": ${host_port}
     }
-  ]
+  ],
+  "environment": [
+    %{ for name, value in environment_vars }{
+      "name": "${name}",
+      "value": "${value}"
+    },
+    %{ endfor }{
+      "name": "AWS_DEFAULT_REGION",
+      "value": "eu-west-1"
+    }
+  ],
+  "secrets": [
+    %{ for name, value in secrets }{
+      "name": "${name}",
+      "valueFrom": "${value}"
+    },
+    %{ endfor }{
+      "name": "DATA_DOG_DEV_API_KEY",
+      "valueFrom": "arn:aws:ssm:eu-west-1:834366213304:parameter/data-dog/dev/API_KEY"
+    }
+  ],
+  "networkMode": "bridge",
+  "essential": true,
+  "logConfiguration": {
+    "logDriver": "awslogs",
+    "options": {
+      "awslogs-group": "${log_group}",
+      "awslogs-region": "${aws_region}",
+      "awslogs-stream-prefix": "${service_name}"
+    }
+  }
+}
