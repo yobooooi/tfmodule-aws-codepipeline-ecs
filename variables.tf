@@ -1,3 +1,4 @@
+#TODO: restructure variables files. break up into specific vars for resources
 variable "profile" {
   description = "AWS Profile used to create the resoources"
   default     = "globee"
@@ -20,7 +21,8 @@ variable "description" {
   description = "Description of the Service"
 }
 
-variable "environment_vars" {
+#TODO: rename to build_env_variables
+variable "code_build_environment_vars" {
   description = "Environment Variable Key Value Pairs"
   default = {}
 }
@@ -40,4 +42,34 @@ variable "subnet_id3" {
 variable "runtime_version" {
   description = ""
   default     = "openjdk11" 
+}
+
+## shared ecs variables
+
+variable "reserved_task_memory" {
+  description = ""
+  default     = "1024" 
+}
+
+variable "container_port" {
+  description = ""
+}
+
+variable "host_port" {
+  description = ""
+}
+
+## dev ecs task definition variables
+variable "ecs_cluster_name_dev" {
+  description = ""
+  default     = "dev-cluster" 
+}
+variable "dev_ecs_environment_vars" {
+  description = ""
+  default = {}
+}
+
+variable "dev_ecs_ssm_secrets" {
+  description = ""
+  default = {}
 }
