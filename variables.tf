@@ -48,7 +48,7 @@ variable "runtime_version" {
 
 variable "reserved_task_memory" {
   description = ""
-  default     = "1024" 
+  default     = "512" 
 }
 
 variable "container_port" {
