@@ -59,11 +59,17 @@ variable "host_port" {
   description = ""
 }
 
+variable "vpc_id" {
+  description = ""
+  default     = "vpc-607f9619"
+}
+
 ## dev ecs task definition variables
 variable "ecs_cluster_name_dev" {
   description = ""
   default     = "dev-cluster" 
 }
+
 variable "dev_ecs_environment_vars" {
   description = ""
   default = {}
@@ -72,4 +78,9 @@ variable "dev_ecs_environment_vars" {
 variable "dev_ecs_ssm_secrets" {
   description = ""
   default = {}
+}
+
+variable "dev_container_desired_count" {
+  description = ""
+  default     = 1 
 }

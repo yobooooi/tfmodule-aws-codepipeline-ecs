@@ -41,7 +41,7 @@ module "devops_project_pipeline" {
 
   ## General ECS Vars
   container_port = "8080"
-  host_port      = "32000"
+  host_port      = "8080"
 
   ## params for ecs DEV task ##
   dev_ecs_environment_vars = {

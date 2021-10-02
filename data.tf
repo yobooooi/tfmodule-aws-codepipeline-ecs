@@ -75,3 +75,11 @@ data "template_file" "ecs_service_role_dev" {
     service = "ecs-tasks.amazonaws.com"
   }
 }
+
+data "aws_ecs_cluster" "dev_cluster" {
+  cluster_name = var.ecs_cluster_name_dev
+}
+
+data "aws_vpc" "main" {
+  id = var.vpc_id
+}
