@@ -38,14 +38,20 @@ resource "aws_iam_role" "ecs_task_role_dev" {
   name                = "${var.ecs_cluster_name_dev}-${var.service}-dev-task-role"
   path                = "/service-role/"
   assume_role_policy  = data.template_file.ecs_service_role_dev.rendered
-  managed_policy_arns = ["arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"]
+  managed_policy_arns = ["arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy", "arn:aws:iam::aws:policy/CloudWatchLogsFullAccess"]
 }
 
 resource "aws_iam_role" "ecs_execution_role_dev" {
   name                = "${var.ecs_cluster_name_dev}-${var.service}-dev-execution-role"
   path                = "/service-role/"
   assume_role_policy  = data.template_file.ecs_service_role_dev.rendered
-  managed_policy_arns = ["arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"]
+  managed_policy_arns = ["arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy", "arn:aws:iam::aws:policy/CloudWatchLogsFullAccess"]
+}
+
+resource "aws_iam_role_policy" "ecs_task_role_dev_policy_dev" {
+  name   = "${var.ecs_cluster_name_dev}-${var.service}-dev-execution-policy"
+  role   = aws_iam_role.ecs_task_role_dev.id
+  policy = data.template_file.ecs_execution_role_policy_dev.rendered
 }
 
 resource "aws_iam_role_policy" "ecs_execution_role_policy_dev" {

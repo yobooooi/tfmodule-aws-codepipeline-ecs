@@ -21,6 +21,7 @@ resource "aws_ecs_task_definition" "dev_ecs_service" {
   })
   requires_compatibilities = ["FARGATE"]
   network_mode             = "awsvpc"
+  #TODO: distinction between the task_role and execution_role. perhaps using a managad global execution role
   task_role_arn            = aws_iam_role.ecs_task_role_dev.arn
   execution_role_arn       = aws_iam_role.ecs_execution_role_dev.arn
   cpu                      = 256

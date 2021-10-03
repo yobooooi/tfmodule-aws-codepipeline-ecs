@@ -9,8 +9,27 @@
         "ssm:GetParameter"
       ],
       "Resource": [
-        "arn:aws:ssm:${aws_region}:${aws_account_id}:parameter/${team}/${service}*/*"
+        "*"
       ]
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+          "secretsmanager:GetSecretValue"
+      ],
+      "Resource": [
+          "arn:aws:secretsmanager:eu-west-1:834366213304:secret:*"
+      ]
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+          "kms:GetPublicKey",
+          "kms:Decrypt",
+          "kms:GenerateDataKey",
+          "kms:DescribeKey"
+      ],
+      "Resource": "*"
     },
     {
       "Effect": "Allow",
