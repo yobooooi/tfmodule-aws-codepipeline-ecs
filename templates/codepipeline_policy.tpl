@@ -46,6 +46,27 @@
                 "codecommit:GitPush"
             ],
             "Resource": "${codecommit_arn}"
+        },
+        {
+            "Sid": "CodeDeployECSPermissions",
+            "Effect": "Allow",
+            "Action": [
+                "ecs:*",
+                "events:DescribeRule",
+                "events:DeleteRule",
+                "events:ListRuleNamesByTarget",
+                "events:ListTargetsByRule",
+                "events:PutRule",
+                "events:PutTargets",
+                "events:RemoveTargets",
+                "iam:ListAttachedRolePolicies",
+                "iam:ListInstanceProfiles",
+                "iam:ListRoles",
+                "logs:CreateLogGroup",
+                "logs:DescribeLogGroups",
+                "logs:FilterLogEvents"
+            ],
+            "Resource": "*"
         }
     ]
 }

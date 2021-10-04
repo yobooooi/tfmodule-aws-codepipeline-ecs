@@ -11,7 +11,7 @@ resource "aws_ecs_task_definition" "dev_ecs_service" {
     aws_account_id       = data.aws_caller_identity.current.account_id,
     service_name         = var.service,
     image                = aws_ecr_repository.repository.repository_url,
-    container_name       = "${var.team}-${var.service}-dev",
+    container_name       = "${var.team}-${var.service}",
     container_port       = var.container_port,
     host_port            = var.host_port,
     reserved_task_memory = var.reserved_task_memory,

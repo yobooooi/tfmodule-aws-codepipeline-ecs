@@ -17,9 +17,9 @@ resource "aws_iam_policy" "codebuild_policy" {
 }
 
 resource "aws_iam_role" "codepipeline_role" {
-  name               = "${var.team}-${var.service}-codepipeline-service-role"
-  path               = "/service-role/"
-  assume_role_policy = data.template_file.codepipeline_service_role.rendered
+  name                = "${var.team}-${var.service}-codepipeline-service-role"
+  path                = "/service-role/"
+  assume_role_policy  = data.template_file.codepipeline_service_role.rendered
 }
 
 resource "aws_iam_role_policy_attachment" "codepipeline_role_attach" {

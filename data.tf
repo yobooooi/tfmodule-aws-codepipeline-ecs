@@ -27,11 +27,11 @@ data "template_file" "buildspec" {
   template = file("${path.module}/templates/buildspec.tpl")
 
   vars = {
-    runtime_version         = var.runtime_version
-    container_name          = var.service
-    repository_url          = aws_ecr_repository.repository.repository_url
-    region                  = var.region
-    aws_account_id          = data.aws_caller_identity.current.account_id
+    runtime_version  = var.runtime_version
+    container_name   = "${var.team}-${var.service}"
+    repository_url   = aws_ecr_repository.repository.repository_url
+    region           = var.region
+    aws_account_id   = data.aws_caller_identity.current.account_id
   }
 }
 

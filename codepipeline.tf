@@ -29,15 +29,35 @@ resource "aws_codepipeline" "pipeline" {
     name = "Build"
 
     action {
-      name            = "build"
-      category        = "Build"
-      owner           = "AWS"
-      provider        = "CodeBuild"
-      input_artifacts = ["build"]
-      version         = "1"
+      name             = "build"
+      category         = "Build"
+      owner            = "AWS"
+      provider         = "CodeBuild"
+      input_artifacts  = ["build"]
+      version          = "1"
+      output_artifacts = ["imagedefinitions"]
 
       configuration = {
         ProjectName = aws_codebuild_project.build.id
+      }
+    }
+  }
+
+  stage {
+    name = "Dev-Deploy"
+  
+    action {
+      name             = "Deploy"
+      category         = "Deploy"
+      owner            = "AWS"
+      provider         = "ECS"
+      version          = "1"
+      input_artifacts  = ["imagedefinitions"]
+
+      configuration = {
+        ClusterName = var.ecs_cluster_name_dev
+        ServiceName = "${var.team}-${var.service}-dev"
+        FileName    = "imagedefinitions.json"
       }
     }
   }
