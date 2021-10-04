@@ -84,3 +84,8 @@ variable "dev_container_desired_count" {
   description = ""
   default     = 1 
 }
+
+variable "sns_approval_topic_arn" {
+  description = ""
+  default     = "arn:aws:sns:eu-west-1:834366213304:slack-deploy-approvals-topic"
+}

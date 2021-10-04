@@ -2,7 +2,11 @@ resource "aws_codebuild_project" "build" {
   name         = "${var.team}-${var.service}-build"
   description  = var.description
   service_role = aws_iam_role.codebuild_role.arn
-
+  cache {
+    type     = "S3"
+    location = "${data.aws_s3_bucket.codebuild_artifacts.bucket}/${var.service}/cache"
+  }
+  
   artifacts {
     type                = "CODEPIPELINE"
     artifact_identifier = "imagedefinitions.json"

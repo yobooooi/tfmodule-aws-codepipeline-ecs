@@ -61,4 +61,22 @@ resource "aws_codepipeline" "pipeline" {
       }
     }
   }
+
+  stage {
+    name = "Approve"
+
+    action {
+      name     = "Approval"
+      category = "Approval"
+      owner    = "AWS"
+      provider = "Manual"
+      version  = "1"
+
+      configuration = {
+        NotificationArn = "${var.sns_approval_topic_arn}"
+        CustomData = "Appove Deployment: ${var.team}-${var.service}-dev"
+      }
+    }
+}
+
 }
