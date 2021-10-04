@@ -39,12 +39,11 @@ resource "aws_ecs_service" "service" {
     security_groups = [aws_security_group.ecs_service_sg.id]
   }
 
-  #TODO: add loadbalancer configuration
-  # load_balancer {
-  #   target_group_arn = aws_alb_target_group.service_tg.arn
-  #   container_name   = "${var.environment_name}-${var.service_name}"
-  #   container_port   = var.container_port
-  # }
+  load_balancer {
+    target_group_arn = aws_alb_target_group.service_tg_dev.arn
+    container_name   = "${var.team}-${var.service}"
+    container_port   = var.container_port
+  }
 }
 
 resource "aws_security_group" "ecs_service_sg" {

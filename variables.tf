@@ -55,6 +55,11 @@ variable "container_port" {
   description = ""
 }
 
+variable "ecs_healthcheck_endpoint" {
+  description = ""
+  default     = "/"
+}
+
 variable "host_port" {
   description = ""
 }
