@@ -31,9 +31,11 @@ resource "aws_ecs_service" "service" {
   name            = "${var.team}-${var.service}-dev"
   task_definition = aws_ecs_task_definition.dev_ecs_service.arn
 
-  cluster         = data.aws_ecs_cluster.dev_cluster.arn
-  desired_count   = var.dev_container_desired_count
-  launch_type     = "FARGATE" 
+  cluster                = data.aws_ecs_cluster.dev_cluster.arn
+  enable_execute_command = true
+  desired_count          = var.dev_container_desired_count
+  launch_type            = "FARGATE"
+   
   network_configuration {
     subnets         = [var.subnet_id1, var.subnet_id2, var.subnet_id3] 
     security_groups = [aws_security_group.ecs_service_sg.id]
